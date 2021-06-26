@@ -1,7 +1,9 @@
 package ipc1_practica3;
 
 import POO.*;
+import Views.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 public class FuncionesGenerales {
@@ -200,6 +202,28 @@ public class FuncionesGenerales {
             for (Curso curso : alumno.getCursos()) {
                 System.out.println("-->Id del Curso: "+ curso.getId() + " Codigo del Curso: "+ curso.getCodigo()+ " Nombre del Curso: "+ curso.getNombre() + " Nota en el Curso: "+ curso.getNota());
             }
+        }
+    }
+
+    public static void CrearGraficas(String str) {
+        if(consola.ValidarNumero(str.trim())){
+            Curso auxCurso = null;
+            for (Curso curso : cursos) {
+                if(curso.getCodigo() == Integer.parseInt(str.trim())){
+                    auxCurso = curso;
+                    break;
+                }
+            }
+            if(auxCurso != null){
+                Main v1 = new Main();
+                v1.setVisible(false);
+                ConfigGraphics v2 = new ConfigGraphics(auxCurso);
+                v2.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "El Curso no Existe.");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No has ingresado un numero");
         }
     }
 }
