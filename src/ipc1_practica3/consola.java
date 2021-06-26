@@ -7,7 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class consola {
-    
+    private consola(){}
     public static boolean ValidarNumero(String str){
         try {
             int i = Integer.parseInt(str);
@@ -20,6 +20,14 @@ public class consola {
     public static boolean ValidaEntrada(String str){
         int i = str.length();
         if(i != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public static boolean ValidarGenero(String str){
+        if(str.equalsIgnoreCase("F") || str.equalsIgnoreCase("M")){
             return true;
         }else{
             return false;

@@ -1,6 +1,9 @@
 package Views;
 
-import Componentes.Boton;
+import Componentes.*;
+import ipc1_practica3.FuncionesGenerales;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,6 +27,14 @@ public class Main extends JFrame{
         Boton Alumno = new Boton("Carga de Alumnos", 20, 70, 150, 20);
         Boton Curos = new Boton("Carga de Curso", 20,95,150,20);
         Boton Notas = new Boton("Carga de Notas", 20,120, 150, 20);
+        
+        Alumno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                FuncionesGenerales.CargarAlumnos();
+            }
+        });
+        
         JPmain.add(Curos);
         JPmain.add(Alumno);
         JPmain.add(Notas);
