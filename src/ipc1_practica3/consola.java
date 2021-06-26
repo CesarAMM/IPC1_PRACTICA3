@@ -17,6 +17,15 @@ public class consola {
         }
     }
     
+    public static boolean ValidarDoble(String str){
+        try {
+            double i = Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
     public static boolean ValidaEntrada(String str){
         int i = str.length();
         if(i != 0){

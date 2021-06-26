@@ -122,4 +122,84 @@ public class FuncionesGenerales {
             }
         }
     }
+    
+    public static void CargaAsignacionesCursos(){
+        String datos_a = consola.LeerArchivo();
+        String datos[] = datos_a.split("\n");
+        for(int i = 0; i< datos.length; i++){
+            if(i > 0){
+                try {
+                    String IdAlumno = datos[i].split(",")[0].trim();
+                    String IdCurso = datos[i].split(",")[1].trim();
+                    String Nota = datos[i].split(",")[2 ].trim();
+                    if(consola.ValidaEntrada(IdCurso) && consola.ValidaEntrada(IdAlumno) && consola.ValidaEntrada(Nota)){
+                        if(consola.ValidarNumero(IdAlumno) && consola.ValidarNumero(IdCurso) && consola.ValidarDoble(Nota)){
+                            Curso auxCurso = null; boolean estado = false;
+                            for (Curso curso : cursos) {
+                                if(curso.getId() == Integer.parseInt(IdCurso)){
+                                    estado = true;
+                                    auxCurso = curso;
+                                    break;
+                                }
+                            }
+                            if(estado == true && auxCurso != null){
+                                int contador = 0;
+                                for (Alumno alumno : alumnos) {
+                                    if (alumno.getId() == Integer.parseInt(IdAlumno)) {
+                                        for (Curso curso : alumno.getCursos()) {
+                                            if(curso.getId() == auxCurso.getId()){
+                                                estado =false;
+                                                break;
+                                            }
+                                        }
+                                        if(estado == true){
+                                            alumnos.get(contador).getCursos().add(new Curso(auxCurso.getId(), auxCurso.getCodigo(), auxCurso.getNombre(), auxCurso.getNota()));
+                                        }
+                                    }
+                                    contador++;
+                                }
+                            }else{
+                                System.out.println("No hay cursos con el Id: "+ IdCurso);
+                            }
+                        }else {
+                            if(!consola.ValidarDoble(Nota)){
+                                System.out.println("Esto no es valido para una nota: "+ Nota);
+                            }
+                            if(!consola.ValidarNumero(IdCurso)){
+                                System.out.println("Esto no es valido para buscar el Id del curso: "+ IdCurso);
+                            }
+                            if(!consola.ValidarNumero(IdAlumno)){
+                                System.out.println("Esto no es valido para buscar un alumno: "+ IdAlumno);
+                            }
+                        }
+                    }else{
+                        if(!consola.ValidaEntrada(IdCurso)){
+                            System.out.println("No hay dato del Id del Curoso");
+                        }
+                        if(!consola.ValidaEntrada(Nota)){
+                            System.out.println("No hay datos para la nota");
+                        }
+                        if(!consola.ValidaEntrada(IdAlumno)){
+                            System.out.println("No hay id del estudiante");
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("**<<     Hubo un error no controlado     >>**");
+                    System.out.println(e);
+                }
+            }
+        }
+    }
+    
+    public static void Verdatos(){
+        for (Curso curso : cursos) {
+            System.out.println("Id Curso: " + curso.getId() +" Codigo del Curso: "+ curso.getCodigo() + " Nombre del Curso: "+ curso.getNombre());
+        }
+        for (Alumno alumno : alumnos) {
+            System.out.println("Id del Alumno: " + alumno.getId() + " Carnet del Alumno: " + alumno.getCarnet() + " Nombre del Alumnos: "+ alumno.getNombre() +" Fecha de Nacimiento: "+ alumno.getFecha());
+            for (Curso curso : alumno.getCursos()) {
+                System.out.println("-->Id del Curso: "+ curso.getId() + " Codigo del Curso: "+ curso.getCodigo()+ " Nombre del Curso: "+ curso.getNombre() + " Nota en el Curso: "+ curso.getNota());
+            }
+        }
+    }
 }

@@ -18,7 +18,7 @@ public class Alumno {
         this.Nombre = Nombre;
         this.Fecha = Fecha;
         this.Genero = Genero;
-        this.cursos = null;
+        this.cursos = new ArrayList<Curso>();
     }
 
     public int getId() {
